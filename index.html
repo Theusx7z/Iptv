@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IPTV Premium</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #0f1c2c;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #00d8ff;
+      letter-spacing: 2px;
+    }
+
+    main {
+      flex: 1;
+      padding: 30px 15px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #00d8ff;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #00d8ff;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    /* Planos IPTV */
+    .plans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .plan {
+      background: #1b2a44;
+      padding: 20px;
+      border-radius: 10px;
+      width: 260px;
+      box-shadow: 0 0 10px #00d8ff88;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .plan:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00d8ffcc;
+    }
+
+    .plan h3 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: #00d8ff;
+    }
+
+    .plan p {
+      margin-bottom: 15px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .plan .price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #00ffea;
+    }
+
+    /* Formulário */
+    form {
+      background: #1b2a44;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00d8ff88;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #00d8ff;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    form button {
+      background: #00d8ff;
+      color: #1b2a44;
+      font-weight: 700;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background: #00b5cc;
+    }
+
+    footer {
+      background: #0f1c2c;
+      text-align: center;
+      padding: 15px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 720px) {
+      .plans {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .plan {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IPTV Premium</h1>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>Sobre o IPTV Premium</h2>
+      <p>Oferecemos serviço de IPTV com mais de 1500 canais ao vivo, filmes e séries on-demand, suporte 24h e alta qualidade de transmissão. Assista em qualquer dispositivo com internet!</p>
+    </section>
+
+    <section id="plans">
+      <h2>Planos Disponíveis</h2>
+      <div class="plans">
+        <div class="plan">
+          <h3>Plano Básico</h3>
+          <p>Acesso a 500 canais ao vivo + catálogo básico de filmes e séries.</p>
+          <div class="price">R$ 30 / mês</div>
+        </div>
+        <div class="plan">
+          <h3>Plano Avançado</h3>
+          <p>Acesso a 1000 canais + catálogo completo de filmes e séries HD.</p>
+          <div class="price">R$ 50 / mês</div>
+        </div>
+        <div class="plan">
+          <h3>Plano Premium</h3>
+          <p>Todos os canais, catálogo 4K, múltiplas telas e suporte VIP.</p>
+          <div class="price">R$ 80 / mês</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Assine ou Tire suas Dúvidas</h2>
+      <form id="contactForm" onsubmit="return handleSubmit(event)">
+        <label for="name">Nome completo:</label>
+        <input type="text" id="name" name="name" required placeholder="Seu nome"/>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="exemplo@email.com"/>
+
+        <label for="phone">Telefone / WhatsApp:</label>
+        <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX"/>
+
+        <label for="plan">Plano desejado:</label>
+        <select id="plan" name="plan" required>
+          <option value="" disabled selected>Selecione um plano</option>
+          <option value="Plano Básico">Plano Básico - R$30/mês</option>
+          <option value="Plano Avançado">Plano Avançado - R$50/mês</option>
+          <option value="Plano Premium">Plano Premium - R$80/mês</option>
+        </select>
+
+        <label for="message">Mensagem (opcional):</label>
+        <textarea id="message" name="message" rows="3" placeholder="Perguntas ou informações adicionais"></textarea>
+
+        <button type="submit">Enviar Pedido</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 IPTV Premium. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const name = event.target.name.value.trim();
+      const email = event.target.email.value.trim();
+      const phone = event.target.phone.value.trim();
+      const plan = event.target.plan.value;
+      const message = event.target.message.value.trim();
+
+      if (!name || !email || !plan) {
+        alert("Por favor, preencha os campos obrigatórios!");
+        return false;
+      }
+
+      // Montar a mensagem para WhatsApp
+      let whatsappMsg = 
+        `Olá! Gostaria de assinar o serviço IPTV.\n` +
+        `Nome: ${name}\n` +
+        `Email: ${email}\n` +
+        (phone ? `Telefone/WhatsApp: ${phone}\n` : "") +
+        `Plano: ${plan}\n` +
+        (message ? `Mensagem: ${message}\n` : "");
+
+      // Codificar mensagem para URL
+      const encodedMsg = encodeURIComponent(whatsappMsg);
+
+      // Número do WhatsApp para receber o pedido - troque aqui para seu número com código do país, ex: 5511999999999
+      const whatsappNumber = "5511999999999";
+
+      // Abrir WhatsApp web ou app
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, "_blank");
+
+      return true;
+    }
+  </script>
+</body>
+</html>
