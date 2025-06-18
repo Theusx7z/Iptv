@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
@@ -16,7 +16,7 @@
     body {
       background-image: url('IMG_5091.jpeg');
       background-repeat: no-repeat;
-      background-size: cover;
+      background-size: 110% auto; /* Cobrir mais na largura */
       background-position: center center;
       animation: waveBackground 30s ease-in-out infinite alternate;
       padding: 30px;
@@ -31,7 +31,7 @@
         background-position: center center;
       }
       50% {
-        background-position: 10px center;
+        background-position: calc(50% + 3px) center;
       }
       100% {
         background-position: center center;
