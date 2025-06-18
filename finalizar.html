@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Pedido</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffaf5;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h2 {
+      text-align: center;
+      color: #d62828;
+    }
+
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #d62828;
+      color: white;
+      padding: 12px;
+      margin-top: 20px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #b81d1d;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Finalizar Pedido</h2>
+  <form onsubmit="enviarPedido(event)">
+    <label for="nome">Nome Completo</label>
+    <input id="nome" required>
+
+    <label for="endereco">Endereço</label>
+    <input id="endereco" required>
+
+    <label for="bairro">Bairro</label>
+    <input id="bairro" required>
+
+    <label for="pagamento">Forma de Pagamento</label>
+    <select id="pagamento" required>
+      <option value="">Selecione</option>
+      <option>Pix</option>
+      <option>Cartão de Crédito</option>
+      <option>Cartão de Débito</option>
+      <option>Dinheiro</option>
+      <option>Retirada no balcão</option>
+    </select>
+
+    <button type="submit">Enviar Pedido pelo WhatsApp</button>
+  </form>
+</div>
+
+<script>
+  function enviarPedido(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const endereco = document.getElementById('endereco').value;
+    const bairro = document.getElementById('bairro').value;
+    const pagamento = document.getElementById('pagamento').value;
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    if (carrinho.length === 0) {
+      alert("Seu carrinho está vazio.");
+      return;
+    }
+
+    let mensagem = `*Pedido - Ceará Lanches*%0A` +
+                   `*Nome:* ${nome}%0A` +
+                   `*Endereço:* ${endereco}, Bairro: ${bairro}%0A` +
+                   `*Pagamento:* ${pagamento}%0A%0A` +
+                   `*Itens:*`;
+
+    let total = 0;
+
+    carrinho.forEach(item => {
+      mensagem += `%0A- ${item.item} (R$ ${item.preco.toFixed(2)})`;
+      total += item.preco;
+    });
+
+    mensagem += `%0A%0A*Total: R$ ${total.toFixed(2)}*`;
+
+    const numero = "5518996377806";
+    const url = `https://wa.me/${numero}?text=${mensagem}`;
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
