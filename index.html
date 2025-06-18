@@ -5,11 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ceará Lanches</title>
   <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #fffaf5;
-      margin: 0;
-      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -156,70 +169,71 @@
       color: white;
       text-align: center;
       padding: 15px;
-      margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <span class="menu-toggle" onclick="toggleMenu()">☰</span>
-  Ceará Lanches 🍔
-  <span class="cart-icon" onclick="toggleCart()">🛒</span>
-</header>
+<div class="wrapper">
+  <header>
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+    Ceará Lanches 🍔
+    <span class="cart-icon" onclick="toggleCart()">🛒</span>
+  </header>
 
-<div id="sideMenu" class="side-menu">
-  <a href="#" onclick="mostrarCategoria('bebidas')">Bebidas</a>
-  <a href="#" onclick="mostrarCategoria('doces')">Lanches Doces</a>
-  <a href="#" onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
-  <a href="#" onclick="mostrarCategoria('porcoes')">Porções</a>
+  <div id="sideMenu" class="side-menu">
+    <a href="#" onclick="mostrarCategoria('bebidas')">Bebidas</a>
+    <a href="#" onclick="mostrarCategoria('doces')">Lanches Doces</a>
+    <a href="#" onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
+    <a href="#" onclick="mostrarCategoria('porcoes')">Porções</a>
+  </div>
+
+  <div id="cartMenu" class="cart-menu">
+    <h2>🛒 Carrinho</h2>
+    <ul id="listaCarrinho"></ul>
+    <strong id="totalPedido">Total: R$ 0,00</strong><br>
+    <button onclick="finalizarPedido()">Finalizar Pedido</button>
+  </div>
+
+  <section id="bebidas" class="menu active">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
+      <h3>Refrigerante Lata</h3>
+      <p>R$ 6,00</p>
+      <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
+    </div>
+  </section>
+
+  <section id="doces" class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
+      <h3>Bolo de Pote</h3>
+      <p>Doce gelado com camadas de massa e recheio.</p>
+      <p>R$ 9,00</p>
+      <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
+    </div>
+  </section>
+
+  <section id="salgados" class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?burger" alt="X-Burger">
+      <h3>X-Burger</h3>
+      <p>Pão, hambúrguer artesanal, queijo e alface.</p>
+      <p>R$ 12,00</p>
+      <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
+    </div>
+  </section>
+
+  <section id="porcoes" class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?fries" alt="Batata">
+      <h3>Porção de Batata</h3>
+      <p>Batata frita crocante, acompanha molho especial.</p>
+      <p>R$ 15,00</p>
+      <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
+    </div>
+  </section>
 </div>
-
-<div id="cartMenu" class="cart-menu">
-  <h2>🛒 Carrinho</h2>
-  <ul id="listaCarrinho"></ul>
-  <strong id="totalPedido">Total: R$ 0,00</strong><br>
-  <button onclick="finalizarPedido()">Finalizar Pedido</button>
-</div>
-
-<section id="bebidas" class="menu active">
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
-    <h3>Refrigerante Lata</h3>
-    <p>R$ 6,00</p>
-    <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
-  </div>
-</section>
-
-<section id="doces" class="menu">
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
-    <h3>Bolo de Pote</h3>
-    <p>Doce gelado com camadas de massa e recheio.</p>
-    <p>R$ 9,00</p>
-    <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
-  </div>
-</section>
-
-<section id="salgados" class="menu">
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?burger" alt="X-Burger">
-    <h3>X-Burger</h3>
-    <p>Pão, hambúrguer artesanal, queijo e alface.</p>
-    <p>R$ 12,00</p>
-    <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
-  </div>
-</section>
-
-<section id="porcoes" class="menu">
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?fries" alt="Batata">
-    <h3>Porção de Batata</h3>
-    <p>Batata frita crocante, acompanha molho especial.</p>
-    <p>R$ 15,00</p>
-    <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
-  </div>
-</section>
 
 <footer>
   ©2025 Ceará Lanches 🍔🍟<br>Todos os direitos reservados
