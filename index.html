@@ -74,6 +74,23 @@
       border-radius: 5px;
       cursor: pointer;
     }
+    .carrinho {
+      background: #fff0e6;
+      padding: 20px;
+      text-align: center;
+    }
+    .carrinho ul {
+      list-style: none;
+      padding: 0;
+    }
+    .carrinho li {
+      margin: 8px 0;
+    }
+    .remove-btn {
+      color: red;
+      margin-left: 10px;
+      cursor: pointer;
+    }
     footer {
       background-color: #d62828;
       color: white;
@@ -85,7 +102,7 @@
 </head>
 <body>
 
-<header>Ceará Lanches 🍔</header>
+<header>Ceará Lanches🍔🍟</header>
 
 <div class="menu" id="menu">
   <div class="item">
@@ -126,6 +143,12 @@
   </div>
 </div>
 
+<div class="carrinho">
+  <h2>🛒 Carrinho</h2>
+  <ul id="listaCarrinho"></ul>
+  <strong id="totalPedido">Total: R$ 0,00</strong>
+</div>
+
 <div class="checkout">
   <h2>Finalizar Pedido</h2>
   <input type="text" id="nome" placeholder="Seu nome completo" required><br>
@@ -151,7 +174,29 @@
 
   function addToCart(item, preco) {
     carrinho.push({ item, preco });
+    atualizarCarrinho();
     alert(item + " adicionado ao pedido!");
+  }
+
+  function removerItem(index) {
+    carrinho.splice(index, 1);
+    atualizarCarrinho();
+  }
+
+  function atualizarCarrinho() {
+    const lista = document.getElementById('listaCarrinho');
+    const total = document.getElementById('totalPedido');
+    lista.innerHTML = "";
+    let totalValor = 0;
+
+    carrinho.forEach((i, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `${i.item} - R$ ${i.preco.toFixed(2)} <span class="remove-btn" onclick="removerItem(${index})">[remover]</span>`;
+      lista.appendChild(li);
+      totalValor += i.preco;
+    });
+
+    total.innerHTML = `Total: R$ ${totalValor.toFixed(2)}`;
   }
 
   function enviarPedido() {
