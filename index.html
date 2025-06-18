@@ -4,7 +4,161 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ceará Lanches</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffaf5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #d62828;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      font-size: 22px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .menu-toggle {
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .cart-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .side-menu,
+    .cart-menu {
+      position: fixed;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background: #d62828;
+      color: white;
+      padding-top: 60px;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .side-menu {
+      left: -250px;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .side-menu a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      border-bottom: 1px solid #ffffff33;
+    }
+
+    .cart-menu {
+      right: -300px;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .cart-menu.active {
+      right: 0;
+    }
+
+    .cart-menu h2 {
+      margin-top: 0;
+    }
+
+    .cart-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .cart-menu li {
+      margin: 8px 0;
+    }
+
+    .remove-btn {
+      color: yellow;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .cart-menu button {
+      background: #ffffff;
+      color: #d62828;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .menu {
+      padding: 20px;
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .menu.active {
+      display: grid;
+    }
+
+    .item {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .item h3 {
+      margin: 10px 0 5px;
+    }
+
+    .item p {
+      margin: 5px 0;
+    }
+
+    .item button {
+      background: #f77f00;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    footer {
+      background-color: #d62828;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,67 +169,55 @@
 </header>
 
 <div id="sideMenu" class="side-menu">
-  <a onclick="mostrarCategoria('bebidas')">Bebidas</a>
-  <a onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
-  <a onclick="mostrarCategoria('doces')">Lanches Doces</a>
-  <a onclick="mostrarCategoria('porcoes')">Porções</a>
+  <a href="#" onclick="mostrarCategoria('bebidas')">Bebidas</a>
+  <a href="#" onclick="mostrarCategoria('doces')">Lanches Doces</a>
+  <a href="#" onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
+  <a href="#" onclick="mostrarCategoria('porcoes')">Porções</a>
 </div>
 
 <div id="cartMenu" class="cart-menu">
   <h2>🛒 Carrinho</h2>
   <ul id="listaCarrinho"></ul>
   <strong id="totalPedido">Total: R$ 0,00</strong><br>
-  <button onclick="window.location.href='finalizar.html'">Finalizar Pedido</button>
+  <button onclick="finalizarPedido()">Finalizar Pedido</button>
 </div>
 
-<section id="bebidas" class="categoria">
-  <h2 style="text-align:center;">Bebidas</h2>
-  <div class="menu">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
-      <h3>Refrigerante Lata</h3>
-      <p>R$ 6,00</p>
-      <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
-    </div>
+<section id="bebidas" class="menu active">
+  <div class="item">
+    <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
+    <h3>Refrigerante Lata</h3>
+    <p>R$ 6,00</p>
+    <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
   </div>
 </section>
 
-<section id="salgados" class="categoria" style="display:none;">
-  <h2 style="text-align:center;">Lanches Salgados</h2>
-  <div class="menu">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?burger" alt="X-Burguer">
-      <h3>X-Burguer</h3>
-      <p>Pão, hambúrguer, queijo e salada.</p>
-      <p>R$ 12,00</p>
-      <button onclick="addToCart('X-Burguer', 12)">Adicionar</button>
-    </div>
+<section id="doces" class="menu">
+  <div class="item">
+    <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
+    <h3>Bolo de Pote</h3>
+    <p>Doce gelado com camadas de massa e recheio.</p>
+    <p>R$ 9,00</p>
+    <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
   </div>
 </section>
 
-<section id="doces" class="categoria" style="display:none;">
-  <h2 style="text-align:center;">Lanches Doces</h2>
-  <div class="menu">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
-      <h3>Bolo de Pote</h3>
-      <p>Bolo recheado com brigadeiro e cobertura de chocolate.</p>
-      <p>R$ 9,00</p>
-      <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
-    </div>
+<section id="salgados" class="menu">
+  <div class="item">
+    <img src="https://source.unsplash.com/400x300/?burger" alt="X-Burger">
+    <h3>X-Burger</h3>
+    <p>Pão, hambúrguer artesanal, queijo e alface.</p>
+    <p>R$ 12,00</p>
+    <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
   </div>
 </section>
 
-<section id="porcoes" class="categoria" style="display:none;">
-  <h2 style="text-align:center;">Porções</h2>
-  <div class="menu">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata">
-      <h3>Porção de Batata</h3>
-      <p>Batatas fritas crocantes servidas com molho da casa.</p>
-      <p>R$ 15,00</p>
-      <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
-    </div>
+<section id="porcoes" class="menu">
+  <div class="item">
+    <img src="https://source.unsplash.com/400x300/?fries" alt="Batata">
+    <h3>Porção de Batata</h3>
+    <p>Batata frita crocante, acompanha molho especial.</p>
+    <p>R$ 15,00</p>
+    <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
   </div>
 </section>
 
@@ -83,6 +225,54 @@
   ©2025 Ceará Lanches 🍔🍟<br>Todos os direitos reservados
 </footer>
 
-<script src="script.js"></script>
+<script>
+  let carrinho = [];
+
+  function toggleMenu() {
+    document.getElementById('sideMenu').classList.toggle('active');
+  }
+
+  function toggleCart() {
+    document.getElementById('cartMenu').classList.toggle('active');
+  }
+
+  function mostrarCategoria(id) {
+    document.querySelectorAll('.menu').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    toggleMenu();
+  }
+
+  function addToCart(item, preco) {
+    carrinho.push({ item, preco });
+    atualizarCarrinho();
+  }
+
+  function atualizarCarrinho() {
+    const lista = document.getElementById('listaCarrinho');
+    const total = document.getElementById('totalPedido');
+    lista.innerHTML = "";
+    let totalValor = 0;
+
+    carrinho.forEach((i, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `${i.item} - R$ ${i.preco.toFixed(2)} <span class="remove-btn" onclick="removerItem(${index})">[remover]</span>`;
+      lista.appendChild(li);
+      totalValor += i.preco;
+    });
+
+    total.innerHTML = `Total: R$ ${totalValor.toFixed(2)}`;
+  }
+
+  function removerItem(index) {
+    carrinho.splice(index, 1);
+    atualizarCarrinho();
+  }
+
+  function finalizarPedido() {
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    window.location.href = "finalizar.html";
+  }
+</script>
+
 </body>
 </html>
