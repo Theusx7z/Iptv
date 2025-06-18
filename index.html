@@ -35,7 +35,8 @@
       cursor: pointer;
     }
 
-    .side-menu, .cart-menu {
+    .side-menu,
+    .cart-menu {
       position: fixed;
       top: 0;
       width: 250px;
@@ -47,8 +48,13 @@
       z-index: 999;
     }
 
-    .side-menu { left: -250px; }
-    .side-menu.active { left: 0; }
+    .side-menu {
+      left: -250px;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
 
     .side-menu a {
       display: block;
@@ -71,7 +77,10 @@
       right: 0;
     }
 
-    .cart-menu h2 { margin-top: 0; }
+    .cart-menu h2 {
+      margin-top: 0;
+    }
+
     .cart-menu ul {
       list-style: none;
       padding: 0;
@@ -92,12 +101,11 @@
       background: #ffffff;
       color: #d62828;
       border: none;
-      padding: 10px 15px;
+      padding: 12px 20px;
       cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
       font-weight: bold;
-      width: 100%;
       font-size: 16px;
     }
 
@@ -149,6 +157,10 @@
       padding: 15px;
       margin-top: 30px;
     }
+
+    .secao {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -160,10 +172,10 @@
 </header>
 
 <div id="sideMenu" class="side-menu">
-  <a href="#bebidas" onclick="toggleMenu()">Bebidas</a>
-  <a href="#doces" onclick="toggleMenu()">Lanches Doces</a>
-  <a href="#salgados" onclick="toggleMenu()">Lanches Salgados</a>
-  <a href="#porcoes" onclick="toggleMenu()">Porções</a>
+  <a href="#" onclick="mostrarSecao('bebidas')">Bebidas</a>
+  <a href="#" onclick="mostrarSecao('salgados')">Lanches Salgados</a>
+  <a href="#" onclick="mostrarSecao('doces')">Lanches Doces</a>
+  <a href="#" onclick="mostrarSecao('porcoes')">Porções</a>
 </div>
 
 <div id="cartMenu" class="cart-menu">
@@ -173,7 +185,7 @@
   <button onclick="enviarPedido()">🧾 Finalizar Pedido</button>
 </div>
 
-<section id="bebidas">
+<section id="bebidas" class="secao">
   <h2 style="text-align:center;">Bebidas</h2>
   <div class="menu">
     <div class="item">
@@ -185,46 +197,46 @@
   </div>
 </section>
 
-<section id="doces">
-  <h2 style="text-align:center;">Lanches Doces</h2>
-  <div class="menu">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
-      <h3>Bolo de Pote</h3>
-      <p>Bolo gelado com recheio cremoso e cobertura de chocolate</p>
-      <p>R$ 9,00</p>
-      <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
-    </div>
-  </div>
-</section>
-
-<section id="salgados">
+<section id="salgados" class="secao">
   <h2 style="text-align:center;">Lanches Salgados</h2>
   <div class="menu">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?burger" alt="X-Burger">
       <h3>X-Burger</h3>
-      <p>Hambúrguer com queijo, alface, tomate e molho especial</p>
+      <p>Hambúrguer artesanal com queijo, alface, tomate e molho especial</p>
       <p>R$ 12,00</p>
       <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
     </div>
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?hotdog" alt="Cachorro-Quente">
       <h3>Cachorro-Quente</h3>
-      <p>Salsicha, molho, batata palha e pão macio</p>
+      <p>Salsicha, molho de tomate, milho, ervilha e batata palha no pão macio</p>
       <p>R$ 10,00</p>
       <button onclick="addToCart('Cachorro-Quente', 10)">Adicionar</button>
     </div>
   </div>
 </section>
 
-<section id="porcoes">
+<section id="doces" class="secao">
+  <h2 style="text-align:center;">Lanches Doces</h2>
+  <div class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
+      <h3>Bolo de Pote</h3>
+      <p>Bolo gelado com recheio de leite ninho e cobertura de chocolate</p>
+      <p>R$ 9,00</p>
+      <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
+    </div>
+  </div>
+</section>
+
+<section id="porcoes" class="secao">
   <h2 style="text-align:center;">Porções</h2>
   <div class="menu">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?fries" alt="Batata">
       <h3>Porção de Batata</h3>
-      <p>Batata frita crocante com molho da casa</p>
+      <p>Batatas fritas crocantes acompanhadas de molho especial</p>
       <p>R$ 15,00</p>
       <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
     </div>
@@ -245,6 +257,14 @@
 
   function toggleCart() {
     document.getElementById('cartMenu').classList.toggle('active');
+  }
+
+  function mostrarSecao(id) {
+    document.querySelectorAll('.secao').forEach(secao => {
+      secao.style.display = 'none';
+    });
+    document.getElementById(id).style.display = 'block';
+    toggleMenu();
   }
 
   function addToCart(item, preco) {
@@ -276,19 +296,18 @@
 
   function enviarPedido() {
     const nome = prompt("Seu nome completo:");
-    const rua = prompt("Rua:");
-    const numero = prompt("Número:");
+    const endereco = prompt("Rua e número:");
     const bairro = prompt("Bairro:");
-    const pagamento = prompt("Forma de pagamento (Pix, Cartão, Dinheiro):");
+    const pagamento = prompt("Forma de pagamento: (Pix, Cartão crédito, débito, entrega ou retirada)");
     const entrega = confirm("Deseja entrega? (+R$4,00)");
 
-    if (!nome || !rua || !numero || !bairro || !pagamento || carrinho.length === 0) {
-      alert("Preencha tudo corretamente e adicione itens ao carrinho!");
+    if (!nome || !endereco || !bairro || !pagamento || carrinho.length === 0) {
+      alert("Preencha todos os campos e adicione itens ao carrinho!");
       return;
     }
 
     taxaEntrega = entrega ? 4 : 0;
-    let mensagem = `*Pedido - Ceará Lanches*\n\n*Cliente:* ${nome}\n*Endereço:* Rua ${rua}, Nº ${numero}, Bairro ${bairro}\n*Entrega:* ${entrega ? 'Sim (+R$4,00)' : 'Não'}\n*Pagamento:* ${pagamento}\n\n*Itens:*`;
+    let mensagem = `*Pedido - Ceará Lanches*\n\n*Cliente:* ${nome}\n*Endereço:* ${endereco}\n*Bairro:* ${bairro}\n*Entrega:* ${entrega ? 'Sim (+R$4,00)' : 'Não'}\n*Pagamento:* ${pagamento}\n\n*Itens:*`;
     let total = taxaEntrega;
 
     carrinho.forEach(i => {
@@ -298,10 +317,15 @@
 
     mensagem += `\n\n*Total: R$ ${total.toFixed(2)}*`;
 
-    const numeroZap = "5518996377806";
-    const url = `https://wa.me/${numeroZap}?text=${encodeURIComponent(mensagem)}`;
+    const numero = "5518996377806";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
     window.open(url, "_blank");
   }
+
+  // Mostrar seção inicial opcional (ex: salgado)
+  window.onload = function () {
+    mostrarSecao('salgados');
+  };
 </script>
 
 </body>
