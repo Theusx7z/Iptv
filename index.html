@@ -2,27 +2,18 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ceará Lanches</title>
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-
-    body {
       font-family: Arial, sans-serif;
       background: #fffaf5;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-    }
-
-    .wrapper {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
     }
 
     header {
@@ -38,51 +29,31 @@
       z-index: 1000;
     }
 
-    .menu-toggle {
+    .menu-toggle, .cart-icon {
       font-size: 28px;
       cursor: pointer;
-    }
-
-    .cart-icon {
-      font-size: 24px;
-      cursor: pointer;
-      position: relative;
-    }
-
-    /* Badge do contador de itens */
-    #cart-count {
-      position: absolute;
-      top: -6px;
-      right: -10px;
-      background: white;
-      color: #d62828;
-      font-weight: bold;
-      font-size: 14px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none;
+      user-select: none;
     }
 
     .side-menu,
     .cart-menu {
       position: fixed;
       top: 0;
-      width: 250px;
       height: 100%;
       background: #d62828;
       color: white;
       padding-top: 60px;
       transition: all 0.3s ease;
       z-index: 999;
+      box-sizing: border-box;
       overflow-y: auto;
     }
 
     .side-menu {
-      left: -250px;
+      left: -250px; /* escondido à esquerda */
+      width: 250px;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     .side-menu.active {
@@ -96,13 +67,13 @@
       color: white;
       font-weight: bold;
       border-bottom: 1px solid #ffffff33;
-      cursor: pointer;
     }
 
     .cart-menu {
-      right: -300px;
+      right: -320px; /* escondido à direita */
+      width: 320px;
       padding: 20px;
-      overflow-y: auto;
+      box-sizing: border-box;
     }
 
     .cart-menu.active {
@@ -111,15 +82,18 @@
 
     .cart-menu h2 {
       margin-top: 0;
+      text-align: center;
     }
 
-    .cart-menu ul {
+    #listaCarrinho {
       list-style: none;
       padding: 0;
       margin: 10px 0;
+      max-height: 300px;
+      overflow-y: auto;
     }
 
-    .cart-menu li {
+    #listaCarrinho li {
       margin: 8px 0;
     }
 
@@ -127,6 +101,8 @@
       color: yellow;
       margin-left: 10px;
       cursor: pointer;
+      font-weight: bold;
+      user-select: none;
     }
 
     .cart-menu button {
@@ -138,6 +114,13 @@
       border-radius: 5px;
       margin-top: 10px;
       font-weight: bold;
+      width: 100%;
+      transition: background-color 0.2s ease;
+    }
+
+    .cart-menu button:hover {
+      background-color: #f77f00;
+      color: white;
     }
 
     .menu {
@@ -145,7 +128,9 @@
       display: none;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px;
-      display: grid;
+      box-sizing: border-box;
+      flex-grow: 1;
+      overflow-y: auto;
     }
 
     .menu.active {
@@ -189,6 +174,11 @@
       cursor: pointer;
       border-radius: 5px;
       margin-top: 10px;
+      transition: background-color 0.2s ease;
+    }
+
+    .item button:hover {
+      background-color: #d95d00;
     }
 
     footer {
@@ -196,89 +186,70 @@
       color: white;
       text-align: center;
       padding: 15px;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-<div class="wrapper">
-  <header>
-    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
-    Ceará Lanches 🍔
-    <span class="cart-icon" onclick="toggleCart()">
-      🛒
-      <div id="cart-count" style="display:none">0</div>
-    </span>
-  </header>
+<header>
+  <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+  Ceará Lanches 🍔
+  <span class="cart-icon" onclick="toggleCart()">🛒</span>
+</header>
 
-  <nav id="sideMenu" class="side-menu">
-    <a onclick="mostrarCategoria('bebidas')">Bebidas</a>
-    <a onclick="mostrarCategoria('doces')">Lanches Doces</a>
-    <a onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
-    <a onclick="mostrarCategoria('porcoes')">Porções</a>
-  </nav>
+<nav id="sideMenu" class="side-menu" aria-label="Menu lateral">
+  <a href="#" onclick="mostrarCategoria('bebidas'); return false;">Bebidas</a>
+  <a href="#" onclick="mostrarCategoria('doces'); return false;">Lanches Doces</a>
+  <a href="#" onclick="mostrarCategoria('salgados'); return false;">Lanches Salgados</a>
+  <a href="#" onclick="mostrarCategoria('porcoes'); return false;">Porções</a>
+</nav>
 
-  <aside id="cartMenu" class="cart-menu">
-    <h2>🛒 Carrinho</h2>
-    <ul id="listaCarrinho"></ul>
-    <strong id="totalPedido">Total: R$ 0,00</strong><br>
-    <button onclick="finalizarPedido()">Finalizar Pedido</button>
-  </aside>
+<aside id="cartMenu" class="cart-menu" aria-label="Carrinho de compras">
+  <h2>🛒 Carrinho</h2>
+  <ul id="listaCarrinho"></ul>
+  <strong id="totalPedido">Total: R$ 0,00</strong><br />
+  <button onclick="finalizarPedido()">Finalizar Pedido</button>
+</aside>
 
-  <!-- Bebidas -->
-  <section id="bebidas" class="menu">
+<main>
+  <section id="bebidas" class="menu active" aria-label="Bebidas">
     <div class="item">
-      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante Lata">
+      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante" />
       <h3>Refrigerante Lata</h3>
       <p>Refrigerante gelado para acompanhar sua refeição.</p>
       <p>R$ 6,00</p>
       <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
     </div>
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?juice" alt="Suco Natural">
-      <h3>Suco Natural</h3>
-      <p>Suco feito com frutas frescas.</p>
-      <p>R$ 7,50</p>
-      <button onclick="addToCart('Suco Natural', 7.5)">Adicionar</button>
-    </div>
   </section>
 
-  <!-- Lanches Doces -->
-  <section id="doces" class="menu">
+  <section id="doces" class="menu" aria-label="Lanches Doces">
     <div class="item">
-      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
+      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote" />
       <h3>Bolo de Pote</h3>
       <p>Doce gelado com camadas de massa e recheio.</p>
       <p>R$ 9,00</p>
       <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
     </div>
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?dessert" alt="Brigadeiro">
-      <h3>Brigadeiro</h3>
-      <p>Doce tradicional brasileiro.</p>
-      <p>R$ 2,50</p>
-      <button onclick="addToCart('Brigadeiro', 2.5)">Adicionar</button>
-    </div>
   </section>
 
-  <!-- Lanches Salgados -->
-  <section id="salgados" class="menu">
+  <section id="salgados" class="menu" aria-label="Lanches Salgados">
     <div class="item">
-      <img src="IMG_5092.jpeg" alt="X-Burger">
+      <img src="IMG_5092.jpeg" alt="X-Burger" />
       <h3>X-Burger</h3>
       <p>Pão, hambúrguer artesanal, queijo e alface.</p>
       <p>R$ 12,00</p>
       <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
     </div>
     <div class="item">
-      <img src="IMG_5092.jpeg" alt="X-Tudo">
+      <img src="IMG_5092.jpeg" alt="X-Tudo" />
       <h3>X-Tudo</h3>
       <p>Pão, hambúrguer artesanal, queijo, alface e bacon.</p>
       <p>R$ 27,00</p>
       <button onclick="addToCart('X-Tudo', 27)">Adicionar</button>
     </div>
     <div class="item">
-      <img src="IMG_5092.jpeg" alt="X-Bacon">
+      <img src="IMG_5092.jpeg" alt="X-Bacon" />
       <h3>X-Bacon</h3>
       <p>Pão, hambúrguer artesanal, queijo, alface e bacon.</p>
       <p>R$ 27,00</p>
@@ -286,24 +257,31 @@
     </div>
   </section>
 
-  <!-- Porções -->
-  <section id="porcoes" class="menu">
+  <section id="porcoes" class="menu" aria-label="Porções">
     <div class="item">
-      <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata">
+      <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata" />
       <h3>Porção de Batata</h3>
       <p>Batata frita crocante, acompanha molho especial.</p>
       <p>R$ 15,00</p>
       <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
     </div>
   </section>
-</div>
+</main>
 
 <footer>
-  ©2025 Ceará Lanches 🍔🍟<br>Todos os direitos reservados
+  ©2025 Ceará Lanches 🍔🍟<br />Todos os direitos reservados
 </footer>
 
 <script>
   let carrinho = [];
+
+  // Ao carregar, garante que menus estejam fechados e mostra só "bebidas"
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('sideMenu').classList.remove('active');
+    document.getElementById('cartMenu').classList.remove('active');
+
+    mostrarCategoria('bebidas');
+  });
 
   function toggleMenu() {
     document.getElementById('sideMenu').classList.toggle('active');
@@ -314,12 +292,19 @@
   }
 
   function mostrarCategoria(id) {
-    // Esconde todas as seções
-    document.querySelectorAll('.menu').forEach(sec => sec.classList.remove('active'));
-    // Mostra só a seção clicada
-    document.getElementById(id).classList.add('active');
-    // Fecha o menu lateral após clicar
+    // Fecha o menu lateral após clicar (opcional)
     document.getElementById('sideMenu').classList.remove('active');
+
+    // Esconde todas as categorias
+    document.querySelectorAll('.menu').forEach(sec => {
+      sec.classList.remove('active');
+    });
+
+    // Mostra só a categoria selecionada
+    const categoria = document.getElementById(id);
+    if (categoria) {
+      categoria.classList.add('active');
+    }
   }
 
   function addToCart(item, preco) {
@@ -330,7 +315,6 @@
   function atualizarCarrinho() {
     const lista = document.getElementById('listaCarrinho');
     const total = document.getElementById('totalPedido');
-    const cartCount = document.getElementById('cart-count');
     lista.innerHTML = "";
     let totalValor = 0;
 
@@ -341,15 +325,7 @@
       totalValor += i.preco;
     });
 
-    total.innerHTML = `Total: R$ ${totalValor.toFixed(2)}`;
-
-    // Atualiza badge do contador no ícone do carrinho
-    if(carrinho.length > 0){
-      cartCount.style.display = 'flex';
-      cartCount.textContent = carrinho.length;
-    } else {
-      cartCount.style.display = 'none';
-    }
+    total.textContent = `Total: R$ ${totalValor.toFixed(2)}`;
   }
 
   function removerItem(index) {
@@ -360,13 +336,6 @@
   function finalizarPedido() {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
     window.location.href = "finalizar.html";
-  }
-
-  // Iniciar sem menus abertos e sem seção ativa
-  window.onload = () => {
-    document.getElementById('sideMenu').classList.remove('active');
-    document.getElementById('cartMenu').classList.remove('active');
-    document.querySelectorAll('.menu').forEach(sec => sec.classList.remove('active'));
   }
 </script>
 
