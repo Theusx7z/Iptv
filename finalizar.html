@@ -5,15 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finalizar Pedido</title>
   <style>
-    /* Fundo animado */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 30px;
-      background: url('IMG_5091.jpeg') repeat-x;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') no-repeat fixed center center;
       background-size: cover;
       animation: backgroundScroll 60s linear infinite;
-      /* adiciona um filtro de cor para ficar mais suave */
       position: relative;
       z-index: 0;
     }
@@ -27,22 +25,13 @@
       }
     }
 
-    /* camada de filtro escuro suave para destacar conteúdo */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 250, 245, 0.8);
-      z-index: -1;
-    }
-
     .container {
       max-width: 500px;
       margin: auto;
-      background: white;
+      background: rgba(255, 255, 255, 0.85);
       padding: 25px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       position: relative;
       z-index: 1;
     }
