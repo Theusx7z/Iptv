@@ -1,262 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV Premium</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceará Lanches</title>
   <style>
-    /* Reset básico */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     body {
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: #eee;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
     }
-
     header {
-      background: #0f1c2c;
+      background-color: #d62828;
+      color: white;
       padding: 20px;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      font-size: 28px;
     }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #00d8ff;
-      letter-spacing: 2px;
-    }
-
-    main {
-      flex: 1;
-      padding: 30px 15px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    section {
-      margin-bottom: 40px;
-    }
-
-    section h2 {
-      font-size: 2rem;
-      color: #00d8ff;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #00d8ff;
-      display: inline-block;
-      padding-bottom: 5px;
-    }
-
-    /* Planos IPTV */
-    .plans {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .plan {
-      background: #1b2a44;
+    .menu {
       padding: 20px;
-      border-radius: 10px;
-      width: 260px;
-      box-shadow: 0 0 10px #00d8ff88;
-      transition: transform 0.3s ease;
-      cursor: pointer;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
     }
-
-    .plan:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #00d8ffcc;
-    }
-
-    .plan h3 {
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-      color: #00d8ff;
-    }
-
-    .plan p {
-      margin-bottom: 15px;
-      font-size: 1rem;
-      line-height: 1.4;
-    }
-
-    .plan .price {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #00ffea;
-    }
-
-    /* Formulário */
-    form {
-      background: #1b2a44;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #00d8ff88;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    form label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      color: #00d8ff;
-    }
-
-    form input, form select, form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-    }
-
-    form button {
-      background: #00d8ff;
-      color: #1b2a44;
-      font-weight: 700;
-      padding: 12px;
-      width: 100%;
-      border: none;
+    .item {
+      background: white;
+      border: 1px solid #ddd;
       border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: background-color 0.3s ease;
-    }
-
-    form button:hover {
-      background: #00b5cc;
-    }
-
-    footer {
-      background: #0f1c2c;
-      text-align: center;
       padding: 15px;
-      color: #666;
-      font-size: 0.9rem;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-
-    /* Responsividade */
-    @media (max-width: 720px) {
-      .plans {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .plan {
-        width: 100%;
-        max-width: 350px;
-      }
+    .item h3 {
+      margin: 10px 0;
+    }
+    .item button {
+      background: #f77f00;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .checkout {
+      background: #f1f1f1;
+      padding: 20px;
+      text-align: center;
+    }
+    .checkout input, .checkout select {
+      padding: 10px;
+      margin: 5px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .checkout button {
+      margin-top: 10px;
+      background: #219ebc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>IPTV Premium</h1>
-  </header>
 
-  <main>
-    <section id="about">
-      <h2>Sobre o IPTV Premium</h2>
-      <p>Oferecemos serviço de IPTV com mais de 1500 canais ao vivo, filmes e séries on-demand, suporte 24h e alta qualidade de transmissão. Assista em qualquer dispositivo com internet!</p>
-    </section>
+<header>Ceará Lanches 🍔</header>
 
-    <section id="plans">
-      <h2>Planos Disponíveis</h2>
-      <div class="plans">
-        <div class="plan">
-          <h3>Plano Básico</h3>
-          <p>Acesso a 500 canais ao vivo + catálogo básico de filmes e séries.</p>
-          <div class="price">R$ 30 / mês</div>
-        </div>
-        <div class="plan">
-          <h3>Plano Avançado</h3>
-          <p>Acesso a 1000 canais + catálogo completo de filmes e séries HD.</p>
-          <div class="price">R$ 50 / mês</div>
-        </div>
-        <div class="plan">
-          <h3>Plano Premium</h3>
-          <p>Todos os canais, catálogo 4K, múltiplas telas e suporte VIP.</p>
-          <div class="price">R$ 80 / mês</div>
-        </div>
-      </div>
-    </section>
+<div class="menu" id="menu">
+  <div class="item">
+    <h3>X-Salada</h3>
+    <p>R$ 18,00</p>
+    <button onclick="addToCart('X-Salada', 18)">Adicionar</button>
+  </div>
+  <div class="item">
+    <h3>X-Bacon</h3>
+    <p>R$ 20,00</p>
+    <button onclick="addToCart('X-Bacon', 20)">Adicionar</button>
+  </div>
+  <div class="item">
+    <h3>Porção de Batata</h3>
+    <p>R$ 15,00</p>
+    <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
+  </div>
+  <div class="item">
+    <h3>Refrigerante Lata</h3>
+    <p>R$ 6,00</p>
+    <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
+  </div>
+</div>
 
-    <section id="contact">
-      <h2>Assine ou Tire suas Dúvidas</h2>
-      <form id="contactForm" onsubmit="return handleSubmit(event)">
-        <label for="name">Nome completo:</label>
-        <input type="text" id="name" name="name" required placeholder="Seu nome"/>
+<div class="checkout">
+  <h2>Finalizar Pedido</h2>
+  <input type="text" id="nome" placeholder="Seu nome completo" required><br>
+  <input type="text" id="endereco" placeholder="Endereço completo" required><br>
+  <select id="pagamento">
+    <option value="">Selecione a forma de pagamento</option>
+    <option>Pix</option>
+    <option>Cartão</option>
+    <option>Dinheiro</option>
+  </select><br>
+  <button onclick="enviarPedido()">Enviar Pedido via WhatsApp</button>
+</div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="exemplo@email.com"/>
+<script>
+  let carrinho = [];
 
-        <label for="phone">Telefone / WhatsApp:</label>
-        <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX"/>
+  function addToCart(item, preco) {
+    carrinho.push({ item, preco });
+    alert(item + " adicionado ao pedido!");
+  }
 
-        <label for="plan">Plano desejado:</label>
-        <select id="plan" name="plan" required>
-          <option value="" disabled selected>Selecione um plano</option>
-          <option value="Plano Básico">Plano Básico - R$30/mês</option>
-          <option value="Plano Avançado">Plano Avançado - R$50/mês</option>
-          <option value="Plano Premium">Plano Premium - R$80/mês</option>
-        </select>
+  function enviarPedido() {
+    const nome = document.getElementById('nome').value;
+    const endereco = document.getElementById('endereco').value;
+    const pagamento = document.getElementById('pagamento').value;
 
-        <label for="message">Mensagem (opcional):</label>
-        <textarea id="message" name="message" rows="3" placeholder="Perguntas ou informações adicionais"></textarea>
-
-        <button type="submit">Enviar Pedido</button>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 IPTV Premium. Todos os direitos reservados.
-  </footer>
-
-  <script>
-    function handleSubmit(event) {
-      event.preventDefault();
-
-      const name = event.target.name.value.trim();
-      const email = event.target.email.value.trim();
-      const phone = event.target.phone.value.trim();
-      const plan = event.target.plan.value;
-      const message = event.target.message.value.trim();
-
-      if (!name || !email || !plan) {
-        alert("Por favor, preencha os campos obrigatórios!");
-        return false;
-      }
-
-      // Montar a mensagem para WhatsApp
-      let whatsappMsg = 
-        `Olá! Gostaria de assinar o serviço IPTV.\n` +
-        `Nome: ${name}\n` +
-        `Email: ${email}\n` +
-        (phone ? `Telefone/WhatsApp: ${phone}\n` : "") +
-        `Plano: ${plan}\n` +
-        (message ? `Mensagem: ${message}\n` : "");
-
-      // Codificar mensagem para URL
-      const encodedMsg = encodeURIComponent(whatsappMsg);
-
-      // Número do WhatsApp para receber o pedido - troque aqui para seu número com código do país, ex: 5511999999999
-      const whatsappNumber = "5511999999999";
-
-      // Abrir WhatsApp web ou app
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, "_blank");
-
-      return true;
+    if (!nome || !endereco || !pagamento || carrinho.length === 0) {
+      alert("Preencha todos os campos e adicione pelo menos 1 item!");
+      return;
     }
-  </script>
+
+    let mensagem = `*Novo Pedido - Ceará Lanches*\n\n*Cliente:* ${nome}\n*Endereço:* ${endereco}\n*Pagamento:* ${pagamento}\n\n*Itens:*`;
+    let total = 0;
+
+    carrinho.forEach(i => {
+      mensagem += `\n- ${i.item} (R$ ${i.preco.toFixed(2)})`;
+      total += i.preco;
+    });
+
+    mensagem += `\n\n*Total: R$ ${total.toFixed(2)}*`;
+
+    const numero = "5518996377806";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, "_blank");
+  }
+</script>
+
 </body>
 </html>
