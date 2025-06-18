@@ -211,30 +211,39 @@
     </span>
   </header>
 
-  <div id="sideMenu" class="side-menu">
+  <nav id="sideMenu" class="side-menu">
     <a onclick="mostrarCategoria('bebidas')">Bebidas</a>
     <a onclick="mostrarCategoria('doces')">Lanches Doces</a>
     <a onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
     <a onclick="mostrarCategoria('porcoes')">Porções</a>
-  </div>
+  </nav>
 
-  <div id="cartMenu" class="cart-menu">
+  <aside id="cartMenu" class="cart-menu">
     <h2>🛒 Carrinho</h2>
     <ul id="listaCarrinho"></ul>
     <strong id="totalPedido">Total: R$ 0,00</strong><br>
     <button onclick="finalizarPedido()">Finalizar Pedido</button>
-  </div>
+  </aside>
 
+  <!-- Bebidas -->
   <section id="bebidas" class="menu">
     <div class="item">
-      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
+      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante Lata">
       <h3>Refrigerante Lata</h3>
       <p>Refrigerante gelado para acompanhar sua refeição.</p>
       <p>R$ 6,00</p>
       <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
     </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?juice" alt="Suco Natural">
+      <h3>Suco Natural</h3>
+      <p>Suco feito com frutas frescas.</p>
+      <p>R$ 7,50</p>
+      <button onclick="addToCart('Suco Natural', 7.5)">Adicionar</button>
+    </div>
   </section>
 
+  <!-- Lanches Doces -->
   <section id="doces" class="menu">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
@@ -243,8 +252,16 @@
       <p>R$ 9,00</p>
       <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
     </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?dessert" alt="Brigadeiro">
+      <h3>Brigadeiro</h3>
+      <p>Doce tradicional brasileiro.</p>
+      <p>R$ 2,50</p>
+      <button onclick="addToCart('Brigadeiro', 2.5)">Adicionar</button>
+    </div>
   </section>
 
+  <!-- Lanches Salgados -->
   <section id="salgados" class="menu">
     <div class="item">
       <img src="IMG_5092.jpeg" alt="X-Burger">
@@ -269,6 +286,7 @@
     </div>
   </section>
 
+  <!-- Porções -->
   <section id="porcoes" class="menu">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata">
@@ -296,9 +314,12 @@
   }
 
   function mostrarCategoria(id) {
+    // Esconde todas as seções
     document.querySelectorAll('.menu').forEach(sec => sec.classList.remove('active'));
+    // Mostra só a seção clicada
     document.getElementById(id).classList.add('active');
-    toggleMenu();
+    // Fecha o menu lateral após clicar
+    document.getElementById('sideMenu').classList.remove('active');
   }
 
   function addToCart(item, preco) {
@@ -341,11 +362,10 @@
     window.location.href = "finalizar.html";
   }
 
-  // Inicialmente, esconde todos os menus e o carrinho para que não abram automaticamente
+  // Iniciar sem menus abertos e sem seção ativa
   window.onload = () => {
     document.getElementById('sideMenu').classList.remove('active');
     document.getElementById('cartMenu').classList.remove('active');
-    // Nenhuma categoria ativa no início
     document.querySelectorAll('.menu').forEach(sec => sec.classList.remove('active'));
   }
 </script>
