@@ -122,8 +122,9 @@
     .menu {
       padding: 20px;
       display: none;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px;
+      display: grid;
     }
 
     .menu.active {
@@ -137,22 +138,26 @@
       padding: 10px;
       text-align: center;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .item img {
       width: 100%;
-      height: 180px;
-      object-fit: contain;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
       border-radius: 5px;
-      background-color: #fff;
+      margin-bottom: 10px;
     }
 
     .item h3 {
-      margin: 10px 0 5px;
+      margin: 0 0 5px;
     }
 
     .item p {
       margin: 5px 0;
+      flex-grow: 1;
     }
 
     .item button {
@@ -162,7 +167,7 @@
       padding: 10px 15px;
       cursor: pointer;
       border-radius: 5px;
-      margin-top: 5px;
+      margin-top: 10px;
     }
 
     footer {
@@ -196,17 +201,16 @@
     <button onclick="finalizarPedido()">Finalizar Pedido</button>
   </div>
 
-  <!-- Bebidas -->
   <section id="bebidas" class="menu active">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
       <h3>Refrigerante Lata</h3>
+      <p>Refrigerante gelado para acompanhar sua refeição.</p>
       <p>R$ 6,00</p>
       <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
     </div>
   </section>
 
-  <!-- Lanches Doces -->
   <section id="doces" class="menu">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
@@ -217,7 +221,6 @@
     </div>
   </section>
 
-  <!-- Lanches Salgados -->
   <section id="salgados" class="menu">
     <div class="item">
       <img src="IMG_5092.jpeg" alt="X-Burger">
@@ -226,28 +229,25 @@
       <p>R$ 12,00</p>
       <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
     </div>
-
     <div class="item">
       <img src="IMG_5092.jpeg" alt="X-Tudo">
       <h3>X-Tudo</h3>
-      <p>Pão, hambúrguer artesanal, queijo, ovo, bacon e salada.</p>
+      <p>Pão, hambúrguer artesanal, queijo, alface e bacon.</p>
       <p>R$ 27,00</p>
       <button onclick="addToCart('X-Tudo', 27)">Adicionar</button>
     </div>
-
     <div class="item">
       <img src="IMG_5092.jpeg" alt="X-Bacon">
       <h3>X-Bacon</h3>
-      <p>Pão, hambúrguer artesanal, queijo e muito bacon.</p>
-      <p>R$ 20,00</p>
-      <button onclick="addToCart('X-Bacon', 20)">Adicionar</button>
+      <p>Pão, hambúrguer artesanal, queijo, alface e bacon.</p>
+      <p>R$ 27,00</p>
+      <button onclick="addToCart('X-Bacon', 27)">Adicionar</button>
     </div>
   </section>
 
-  <!-- Porções -->
   <section id="porcoes" class="menu">
     <div class="item">
-      <img src="https://source.unsplash.com/400x300/?fries" alt="Batata">
+      <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata">
       <h3>Porção de Batata</h3>
       <p>Batata frita crocante, acompanha molho especial.</p>
       <p>R$ 15,00</p>
