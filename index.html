@@ -2,29 +2,19 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ceará Lanches</title>
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-
-    body {
       font-family: Arial, sans-serif;
       background: #fffaf5;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
-
-    .wrapper {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
     header {
       background-color: #d62828;
       color: white;
@@ -37,38 +27,27 @@
       top: 0;
       z-index: 1000;
     }
-
-    .menu-toggle {
+    .menu-toggle, .cart-icon {
       font-size: 28px;
       cursor: pointer;
+      user-select: none;
     }
-
-    .cart-icon {
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .side-menu,
-    .cart-menu {
+    /* Menu lateral esquerdo */
+    .side-menu {
       position: fixed;
       top: 0;
+      left: -250px;
       width: 250px;
       height: 100%;
       background: #d62828;
       color: white;
       padding-top: 60px;
-      transition: all 0.3s ease;
+      transition: left 0.3s ease;
       z-index: 999;
     }
-
-    .side-menu {
-      left: -250px;
-    }
-
     .side-menu.active {
       left: 0;
     }
-
     .side-menu a {
       display: block;
       padding: 15px 20px;
@@ -76,40 +55,45 @@
       color: white;
       font-weight: bold;
       border-bottom: 1px solid #ffffff33;
+      cursor: pointer;
+      user-select: none;
     }
-
+    /* Carrinho lateral direito */
     .cart-menu {
+      position: fixed;
+      top: 0;
       right: -300px;
+      width: 300px;
+      height: 100%;
+      background: #d62828;
+      color: white;
       padding: 20px;
       overflow-y: auto;
+      transition: right 0.3s ease;
+      z-index: 999;
     }
-
     .cart-menu.active {
       right: 0;
     }
-
     .cart-menu h2 {
       margin-top: 0;
     }
-
     .cart-menu ul {
       list-style: none;
       padding: 0;
       margin: 10px 0;
     }
-
     .cart-menu li {
       margin: 8px 0;
     }
-
     .remove-btn {
       color: yellow;
       margin-left: 10px;
       cursor: pointer;
+      user-select: none;
     }
-
     .cart-menu button {
-      background: #ffffff;
+      background: white;
       color: #d62828;
       border: none;
       padding: 10px 15px;
@@ -117,20 +101,28 @@
       border-radius: 5px;
       margin-top: 10px;
       font-weight: bold;
+      user-select: none;
+      width: 100%;
     }
-
-    .menu {
+    /* Área dos produtos */
+    main {
+      flex: 1;
       padding: 20px;
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
       gap: 15px;
-      display: grid;
+      margin-top: 15px;
     }
-
-    .menu.active {
-      display: grid;
+    section.menu {
+      display: none;
+      grid-column: 1 / -1;
+      width: 100%;
     }
-
+    section.menu.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 15px;
+    }
     .item {
       background: white;
       border: 1px solid #ddd;
@@ -142,7 +134,6 @@
       flex-direction: column;
       justify-content: flex-start;
     }
-
     .item img {
       width: 100%;
       aspect-ratio: 4 / 3;
@@ -150,16 +141,13 @@
       border-radius: 5px;
       margin-bottom: 10px;
     }
-
     .item h3 {
       margin: 0 0 5px;
     }
-
     .item p {
       margin: 5px 0;
       flex-grow: 1;
     }
-
     .item button {
       background: #f77f00;
       color: white;
@@ -168,40 +156,43 @@
       cursor: pointer;
       border-radius: 5px;
       margin-top: 10px;
+      user-select: none;
+      font-weight: bold;
     }
-
     footer {
       background-color: #d62828;
       color: white;
       text-align: center;
       padding: 15px;
+      font-size: 14px;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-<div class="wrapper">
-  <header>
-    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
-    Ceará Lanches 🍔
-    <span class="cart-icon" onclick="toggleCart()">🛒</span>
-  </header>
+<header>
+  <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+  Ceará Lanches 🍔
+  <span class="cart-icon" onclick="toggleCart()">🛒</span>
+</header>
 
-  <div id="sideMenu" class="side-menu">
-    <a href="#" onclick="mostrarCategoria('bebidas')">Bebidas</a>
-    <a href="#" onclick="mostrarCategoria('doces')">Lanches Doces</a>
-    <a href="#" onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
-    <a href="#" onclick="mostrarCategoria('porcoes')">Porções</a>
-  </div>
+<nav id="sideMenu" class="side-menu" aria-label="Menu de categorias">
+  <a href="#" onclick="mostrarCategoria('bebidas'); return false;">Bebidas</a>
+  <a href="#" onclick="mostrarCategoria('doces'); return false;">Lanches Doces</a>
+  <a href="#" onclick="mostrarCategoria('salgados'); return false;">Lanches Salgados</a>
+  <a href="#" onclick="mostrarCategoria('porcoes'); return false;">Porções</a>
+</nav>
 
-  <div id="cartMenu" class="cart-menu">
-    <h2>🛒 Carrinho</h2>
-    <ul id="listaCarrinho"></ul>
-    <strong id="totalPedido">Total: R$ 0,00</strong><br>
-    <button onclick="finalizarPedido()">Finalizar Pedido</button>
-  </div>
+<aside id="cartMenu" class="cart-menu" aria-label="Carrinho de compras">
+  <h2>🛒 Carrinho</h2>
+  <ul id="listaCarrinho"></ul>
+  <strong id="totalPedido">Total: R$ 0,00</strong><br>
+  <button onclick="finalizarPedido()">Finalizar Pedido</button>
+</aside>
 
-  <section id="bebidas" class="menu active">
+<main>
+  <section id="bebidas" class="menu active" aria-label="Categoria Bebidas">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
       <h3>Refrigerante Lata</h3>
@@ -211,7 +202,7 @@
     </div>
   </section>
 
-  <section id="doces" class="menu">
+  <section id="doces" class="menu" aria-label="Categoria Lanches Doces">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
       <h3>Bolo de Pote</h3>
@@ -221,7 +212,7 @@
     </div>
   </section>
 
-  <section id="salgados" class="menu">
+  <section id="salgados" class="menu" aria-label="Categoria Lanches Salgados">
     <div class="item">
       <img src="IMG_5092.jpeg" alt="X-Burger">
       <h3>X-Burger</h3>
@@ -245,7 +236,7 @@
     </div>
   </section>
 
-  <section id="porcoes" class="menu">
+  <section id="porcoes" class="menu" aria-label="Categoria Porções">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata">
       <h3>Porção de Batata</h3>
@@ -254,10 +245,10 @@
       <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
     </div>
   </section>
-</div>
+</main>
 
 <footer>
-  ©2025 Ceará Lanches 🍔🍟<br>Todos os direitos reservados
+  ©2025 Ceará Lanches 🍔🍟 - Todos os direitos reservados
 </footer>
 
 <script>
@@ -276,6 +267,20 @@
     document.getElementById(id).classList.add('active');
     toggleMenu();
   }
+
+  // Fecha menu lateral se clicar fora
+  document.addEventListener('click', (e) => {
+    const sideMenu = document.getElementById('sideMenu');
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (sideMenu.classList.contains('active') && !sideMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+      sideMenu.classList.remove('active');
+    }
+  });
+
+  // Previne comportamento padrão do clique nos links do menu
+  document.querySelectorAll('#sideMenu a').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
 
   function addToCart(item, preco) {
     carrinho.push({ item, preco });
@@ -304,9 +309,18 @@
   }
 
   function finalizarPedido() {
+    if (carrinho.length === 0) {
+      alert('Seu carrinho está vazio!');
+      return;
+    }
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
     window.location.href = "finalizar.html";
   }
+
+  // Inicializa mostrando "bebidas"
+  document.addEventListener('DOMContentLoaded', () => {
+    mostrarCategoria('bebidas');
+  });
 </script>
 
 </body>
