@@ -116,7 +116,7 @@
         <option>Cartão de Crédito</option>
         <option>Cartão de Débito</option>
         <option>Dinheiro</option>
-        <option>Retirada no balcão</option>
+        <option>Pagamento no balcão</option>
       </select>
 
       <button type="submit">Enviar Pedido pelo WhatsApp</button>
@@ -133,6 +133,7 @@
 
       const nome = document.getElementById('nome').value;
       const endereco = document.getElementById('endereco').value;
+      const rua = document.getElementById('rua').value;
       const bairro = document.getElementById('bairro').value;
       const pagamento = document.getElementById('pagamento').value;
       const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
