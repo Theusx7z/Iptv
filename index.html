@@ -14,16 +14,39 @@
     header {
       background-color: #d62828;
       color: white;
-      padding: 20px;
+      padding: 15px 10px;
       text-align: center;
-      font-size: 28px;
+      font-size: 26px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
+
+    nav {
+      background: #ffb703;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 10px;
+    }
+    nav .links {
+      display: flex;
+      gap: 15px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
     .menu {
       padding: 20px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px;
     }
+
     .item {
       background: white;
       border: 1px solid #ddd;
@@ -53,11 +76,26 @@
       border-radius: 5px;
       margin-top: 5px;
     }
-    .checkout {
-      background: #f1f1f1;
+
+    .carrinho, .checkout {
+      background: #fff0e6;
       padding: 20px;
       text-align: center;
     }
+
+    .carrinho ul {
+      list-style: none;
+      padding: 0;
+    }
+    .carrinho li {
+      margin: 8px 0;
+    }
+    .remove-btn {
+      color: red;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
     .checkout input, .checkout select {
       padding: 10px;
       margin: 5px;
@@ -74,23 +112,7 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .carrinho {
-      background: #fff0e6;
-      padding: 20px;
-      text-align: center;
-    }
-    .carrinho ul {
-      list-style: none;
-      padding: 0;
-    }
-    .carrinho li {
-      margin: 8px 0;
-    }
-    .remove-btn {
-      color: red;
-      margin-left: 10px;
-      cursor: pointer;
-    }
+
     footer {
       background-color: #d62828;
       color: white;
@@ -98,79 +120,114 @@
       padding: 15px;
       margin-top: 30px;
     }
+
+    section {
+      padding-top: 60px;
+    }
   </style>
 </head>
 <body>
 
-<header>Ceará Lanches🍔🍟</header>
+<header>Ceará Lanches 🍔</header>
 
-<div class="menu" id="menu">
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?cheeseburger" alt="X-Salada">
-    <h3>X-Salada</h3>
-    <p>R$ 18,00</p>
-    <button onclick="addToCart('X-Salada', 18)">Adicionar</button>
+<nav>
+  <div class="links">
+    <a href="#bebidas">Bebidas</a>
+    <a href="#doces">Lanches Doces</a>
+    <a href="#porcoes">Porções</a>
   </div>
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?burger-bacon" alt="X-Bacon">
-    <h3>X-Bacon</h3>
-    <p>R$ 20,00</p>
-    <button onclick="addToCart('X-Bacon', 20)">Adicionar</button>
+  <div>
+    <a href="#carrinho">🛒 Carrinho</a>
   </div>
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?fries" alt="Batata Frita">
-    <h3>Porção de Batata</h3>
-    <p>R$ 15,00</p>
-    <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
-  </div>
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
-    <h3>Refrigerante Lata</h3>
-    <p>R$ 6,00</p>
-    <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
-  </div>
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?chicken-burger" alt="X-Frango">
-    <h3>X-Frango</h3>
-    <p>R$ 19,00</p>
-    <button onclick="addToCart('X-Frango', 19)">Adicionar</button>
-  </div>
-  <div class="item">
-    <img src="https://source.unsplash.com/400x300/?hotdog" alt="Cachorro-Quente">
-    <h3>Cachorro-Quente</h3>
-    <p>R$ 12,00</p>
-    <button onclick="addToCart('Cachorro-Quente', 12)">Adicionar</button>
-  </div>
-</div>
+</nav>
 
-<div class="carrinho">
+<section id="bebidas">
+  <h2 style="text-align:center;">Bebidas</h2>
+  <div class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
+      <h3>Refrigerante Lata</h3>
+      <p>R$ 6,00</p>
+      <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
+    </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?juice" alt="Suco">
+      <h3>Suco Natural</h3>
+      <p>R$ 7,00</p>
+      <button onclick="addToCart('Suco Natural', 7)">Adicionar</button>
+    </div>
+  </div>
+</section>
+
+<section id="doces">
+  <h2 style="text-align:center;">Lanches Doces</h2>
+  <div class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?dessert" alt="Churros">
+      <h3>Churros Recheado</h3>
+      <p>R$ 10,00</p>
+      <button onclick="addToCart('Churros Recheado', 10)">Adicionar</button>
+    </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote">
+      <h3>Bolo de Pote</h3>
+      <p>R$ 9,00</p>
+      <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
+    </div>
+  </div>
+</section>
+
+<section id="porcoes">
+  <h2 style="text-align:center;">Porções</h2>
+  <div class="menu">
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?fries" alt="Batata Frita">
+      <h3>Porção de Batata</h3>
+      <p>R$ 15,00</p>
+      <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
+    </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/400x300/?snack" alt="Porção Mista">
+      <h3>Porção Mista</h3>
+      <p>R$ 22,00</p>
+      <button onclick="addToCart('Porção Mista', 22)">Adicionar</button>
+    </div>
+  </div>
+</section>
+
+<section id="carrinho" class="carrinho">
   <h2>🛒 Carrinho</h2>
   <ul id="listaCarrinho"></ul>
   <strong id="totalPedido">Total: R$ 0,00</strong>
-</div>
+</section>
 
-<div class="checkout">
+<section class="checkout">
   <h2>Finalizar Pedido</h2>
   <input type="text" id="nome" placeholder="Seu nome completo" required><br>
   <input type="text" id="endereco" placeholder="Endereço completo" required><br>
+
+  <label><input type="radio" name="entrega" value="retirar" checked onchange="atualizarTaxa()"> Retirar no local</label><br>
+  <label><input type="radio" name="entrega" value="entregar" onchange="atualizarTaxa()"> Entrega (R$ 4,00)</label><br>
+
   <select id="pagamento">
-    <option value="">Selecione a forma de pagamento</option>
+    <option value="">Forma de pagamento</option>
     <option>Cartão de crédito</option>
     <option>Cartão de débito</option>
     <option>Pix</option>
     <option>Pagamento na entrega</option>
     <option>Pagamento na retirada</option>
   </select><br>
+
   <button onclick="enviarPedido()">Enviar Pedido via WhatsApp</button>
-</div>
+</section>
 
 <footer>
-  ©2025 Ceará Lanches 🍔🍟<br>
-  Todos os direitos reservados
+  ©2025 Ceará Lanches 🍔🍟<br>Todos os direitos reservados
 </footer>
 
 <script>
   let carrinho = [];
+  let taxaEntrega = 0;
 
   function addToCart(item, preco) {
     carrinho.push({ item, preco });
@@ -196,21 +253,28 @@
       totalValor += i.preco;
     });
 
-    total.innerHTML = `Total: R$ ${totalValor.toFixed(2)}`;
+    total.innerHTML = `Total: R$ ${(totalValor + taxaEntrega).toFixed(2)} ${taxaEntrega > 0 ? '(com entrega)' : ''}`;
+  }
+
+  function atualizarTaxa() {
+    const entregaSelecionada = document.querySelector('input[name="entrega"]:checked').value;
+    taxaEntrega = entregaSelecionada === 'entregar' ? 4 : 0;
+    atualizarCarrinho();
   }
 
   function enviarPedido() {
     const nome = document.getElementById('nome').value;
     const endereco = document.getElementById('endereco').value;
     const pagamento = document.getElementById('pagamento').value;
+    const entrega = document.querySelector('input[name="entrega"]:checked').value;
 
     if (!nome || !endereco || !pagamento || carrinho.length === 0) {
-      alert("Preencha todos os campos e adicione pelo menos 1 item!");
+      alert("Preencha todos os campos e adicione itens!");
       return;
     }
 
-    let mensagem = `*Pedido - Ceará Lanches*\n\n*Cliente:* ${nome}\n*Endereço:* ${endereco}\n*Pagamento:* ${pagamento}\n\n*Itens:*`;
-    let total = 0;
+    let mensagem = `*Pedido - Ceará Lanches*\n\n*Cliente:* ${nome}\n*Endereço:* ${endereco}\n*Entrega:* ${entrega === 'entregar' ? 'Sim (+R$4,00)' : 'Não'}\n*Pagamento:* ${pagamento}\n\n*Itens:*`;
+    let total = taxaEntrega;
 
     carrinho.forEach(i => {
       mensagem += `\n- ${i.item} (R$ ${i.preco.toFixed(2)})`;
