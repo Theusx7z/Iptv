@@ -36,7 +36,6 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      position: relative;
     }
 
     .menu-toggle {
@@ -50,23 +49,22 @@
       position: relative;
     }
 
-    /* Badge do contador */
-    .cart-count {
+    /* Badge do contador de itens */
+    #cart-count {
       position: absolute;
-      top: -8px;
-      right: -12px;
+      top: -6px;
+      right: -10px;
       background: white;
       color: #d62828;
-      border-radius: 50%;
+      font-weight: bold;
+      font-size: 14px;
       width: 20px;
       height: 20px;
-      font-size: 14px;
-      font-weight: bold;
+      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       pointer-events: none;
-      user-select: none;
     }
 
     .side-menu,
@@ -80,6 +78,7 @@
       padding-top: 60px;
       transition: all 0.3s ease;
       z-index: 999;
+      overflow-y: auto;
     }
 
     .side-menu {
@@ -97,6 +96,7 @@
       color: white;
       font-weight: bold;
       border-bottom: 1px solid #ffffff33;
+      cursor: pointer;
     }
 
     .cart-menu {
@@ -205,16 +205,17 @@
   <header>
     <span class="menu-toggle" onclick="toggleMenu()">☰</span>
     Ceará Lanches 🍔
-    <span class="cart-icon" onclick="toggleCart()">🛒
-      <span id="cartCount" class="cart-count" style="display:none">0</span>
+    <span class="cart-icon" onclick="toggleCart()">
+      🛒
+      <div id="cart-count" style="display:none">0</div>
     </span>
   </header>
 
   <div id="sideMenu" class="side-menu">
-    <a href="#" onclick="mostrarCategoria('bebidas')">Bebidas</a>
-    <a href="#" onclick="mostrarCategoria('doces')">Lanches Doces</a>
-    <a href="#" onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
-    <a href="#" onclick="mostrarCategoria('porcoes')">Porções</a>
+    <a onclick="mostrarCategoria('bebidas')">Bebidas</a>
+    <a onclick="mostrarCategoria('doces')">Lanches Doces</a>
+    <a onclick="mostrarCategoria('salgados')">Lanches Salgados</a>
+    <a onclick="mostrarCategoria('porcoes')">Porções</a>
   </div>
 
   <div id="cartMenu" class="cart-menu">
@@ -224,7 +225,7 @@
     <button onclick="finalizarPedido()">Finalizar Pedido</button>
   </div>
 
-  <section id="bebidas" class="menu active">
+  <section id="bebidas" class="menu">
     <div class="item">
       <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante">
       <h3>Refrigerante Lata</h3>
@@ -301,7 +302,6 @@
   }
 
   function addToCart(item, preco) {
-    if (carrinho.length >= 100) return; // Limite de 100 itens
     carrinho.push({ item, preco });
     atualizarCarrinho();
   }
@@ -309,7 +309,7 @@
   function atualizarCarrinho() {
     const lista = document.getElementById('listaCarrinho');
     const total = document.getElementById('totalPedido');
-    const count = document.getElementById('cartCount');
+    const cartCount = document.getElementById('cart-count');
     lista.innerHTML = "";
     let totalValor = 0;
 
@@ -322,12 +322,12 @@
 
     total.innerHTML = `Total: R$ ${totalValor.toFixed(2)}`;
 
-    // Atualiza badge contador
-    if (carrinho.length > 0) {
-      count.style.display = 'flex';
-      count.textContent = carrinho.length > 99 ? '99+' : carrinho.length;
+    // Atualiza badge do contador no ícone do carrinho
+    if(carrinho.length > 0){
+      cartCount.style.display = 'flex';
+      cartCount.textContent = carrinho.length;
     } else {
-      count.style.display = 'none';
+      cartCount.style.display = 'none';
     }
   }
 
@@ -339,6 +339,14 @@
   function finalizarPedido() {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
     window.location.href = "finalizar.html";
+  }
+
+  // Inicialmente, esconde todos os menus e o carrinho para que não abram automaticamente
+  window.onload = () => {
+    document.getElementById('sideMenu').classList.remove('active');
+    document.getElementById('cartMenu').classList.remove('active');
+    // Nenhuma categoria ativa no início
+    document.querySelectorAll('.menu').forEach(sec => sec.classList.remove('active'));
   }
 </script>
 
