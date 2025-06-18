@@ -27,12 +27,32 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      position: relative;
     }
 
     .menu-toggle, .cart-icon {
       font-size: 28px;
       cursor: pointer;
       user-select: none;
+      position: relative;
+    }
+
+    /* Contador branco sobre o ícone do carrinho */
+    #contadorCarrinho {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: white;
+      color: #d62828;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 2px 7px;
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
+      display: none; /* escondido quando zero */
+      min-width: 20px;
+      text-align: center;
     }
 
     .side-menu,
@@ -195,7 +215,9 @@
 <header>
   <span class="menu-toggle" onclick="toggleMenu()">☰</span>
   Ceará Lanches 🍔
-  <span class="cart-icon" onclick="toggleCart()">🛒</span>
+  <span class="cart-icon" onclick="toggleCart()">🛒
+    <span id="contadorCarrinho">0</span>
+  </span>
 </header>
 
 <nav id="sideMenu" class="side-menu" aria-label="Menu lateral">
@@ -281,6 +303,7 @@
     document.getElementById('cartMenu').classList.remove('active');
 
     mostrarCategoria('bebidas');
+    atualizarContador(); // atualiza contador no carregamento
   });
 
   function toggleMenu() {
@@ -326,6 +349,8 @@
     });
 
     total.textContent = `Total: R$ ${totalValor.toFixed(2)}`;
+
+    atualizarContador();
   }
 
   function removerItem(index) {
@@ -336,6 +361,18 @@
   function finalizarPedido() {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
     window.location.href = "finalizar.html";
+  }
+
+  function atualizarContador() {
+    const contador = document.getElementById('contadorCarrinho');
+    const quantidade = carrinho.length;
+
+    if (quantidade > 0) {
+      contador.style.display = 'inline-block';
+      contador.textContent = quantidade > 99 ? '99+' : quantidade;
+    } else {
+      contador.style.display = 'none';
+    }
   }
 </script>
 
