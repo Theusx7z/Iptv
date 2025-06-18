@@ -1,15 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finalizar Pedido</title>
   <style>
+    /* Fundo animado */
     body {
       font-family: Arial, sans-serif;
-      background: #fffaf5;
       margin: 0;
       padding: 30px;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') repeat-x;
+      background-size: cover;
+      animation: backgroundScroll 60s linear infinite;
+      /* adiciona um filtro de cor para ficar mais suave */
+      position: relative;
+      z-index: 0;
+    }
+
+    @keyframes backgroundScroll {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 1920px 0;
+      }
+    }
+
+    /* camada de filtro escuro suave para destacar conteúdo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 250, 245, 0.8);
+      z-index: -1;
     }
 
     .container {
@@ -19,6 +43,8 @@
       padding: 25px;
       border-radius: 10px;
       box-shadow: 0 0 10px #ccc;
+      position: relative;
+      z-index: 1;
     }
 
     h2 {
@@ -59,67 +85,67 @@
 </head>
 <body>
 
-<div class="container">
-  <h2>Finalizar Pedido</h2>
-  <form onsubmit="enviarPedido(event)">
-    <label for="nome">Nome Completo</label>
-    <input id="nome" required>
+  <div class="container">
+    <h2>Finalizar Pedido</h2>
+    <form onsubmit="enviarPedido(event)">
+      <label for="nome">Nome Completo</label>
+      <input id="nome" required />
 
-    <label for="endereco">Endereço</label>
-    <input id="endereco" required>
+      <label for="endereco">Endereço</label>
+      <input id="endereco" required />
 
-    <label for="bairro">Bairro</label>
-    <input id="bairro" required>
+      <label for="bairro">Bairro</label>
+      <input id="bairro" required />
 
-    <label for="pagamento">Forma de Pagamento</label>
-    <select id="pagamento" required>
-      <option value="">Selecione</option>
-      <option>Pix</option>
-      <option>Cartão de Crédito</option>
-      <option>Cartão de Débito</option>
-      <option>Dinheiro</option>
-      <option>Retirada no balcão</option>
-    </select>
+      <label for="pagamento">Forma de Pagamento</label>
+      <select id="pagamento" required>
+        <option value="">Selecione</option>
+        <option>Pix</option>
+        <option>Cartão de Crédito</option>
+        <option>Cartão de Débito</option>
+        <option>Dinheiro</option>
+        <option>Retirada no balcão</option>
+      </select>
 
-    <button type="submit">Enviar Pedido pelo WhatsApp</button>
-  </form>
-</div>
+      <button type="submit">Enviar Pedido pelo WhatsApp</button>
+    </form>
+  </div>
 
-<script>
-  function enviarPedido(e) {
-    e.preventDefault();
+  <script>
+    function enviarPedido(e) {
+      e.preventDefault();
 
-    const nome = document.getElementById('nome').value;
-    const endereco = document.getElementById('endereco').value;
-    const bairro = document.getElementById('bairro').value;
-    const pagamento = document.getElementById('pagamento').value;
-    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      const nome = document.getElementById('nome').value;
+      const endereco = document.getElementById('endereco').value;
+      const bairro = document.getElementById('bairro').value;
+      const pagamento = document.getElementById('pagamento').value;
+      const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-    if (carrinho.length === 0) {
-      alert("Seu carrinho está vazio.");
-      return;
+      if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio.");
+        return;
+      }
+
+      let mensagem = `*Pedido - Ceará Lanches*%0A` +
+                     `*Nome:* ${nome}%0A` +
+                     `*Endereço:* ${endereco}, Bairro: ${bairro}%0A` +
+                     `*Pagamento:* ${pagamento}%0A%0A` +
+                     `*Itens:*`;
+
+      let total = 0;
+
+      carrinho.forEach(item => {
+        mensagem += `%0A- ${item.item} (R$ ${item.preco.toFixed(2)})`;
+        total += item.preco;
+      });
+
+      mensagem += `%0A%0A*Total: R$ ${total.toFixed(2)}*`;
+
+      const numero = "5518996377806";
+      const url = `https://wa.me/${numero}?text=${mensagem}`;
+      window.open(url, '_blank');
     }
-
-    let mensagem = `*Pedido - Ceará Lanches*%0A` +
-                   `*Nome:* ${nome}%0A` +
-                   `*Endereço:* ${endereco}, Bairro: ${bairro}%0A` +
-                   `*Pagamento:* ${pagamento}%0A%0A` +
-                   `*Itens:*`;
-
-    let total = 0;
-
-    carrinho.forEach(item => {
-      mensagem += `%0A- ${item.item} (R$ ${item.preco.toFixed(2)})`;
-      total += item.preco;
-    });
-
-    mensagem += `%0A%0A*Total: R$ ${total.toFixed(2)}*`;
-
-    const numero = "5518996377806";
-    const url = `https://wa.me/${numero}?text=${mensagem}`;
-    window.open(url, '_blank');
-  }
-</script>
+  </script>
 
 </body>
 </html>
