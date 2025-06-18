@@ -11,33 +11,53 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #d62828;
       color: white;
-      padding: 15px 10px;
-      text-align: center;
-      font-size: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      font-size: 22px;
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
-    nav {
+    .menu-toggle {
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
       background: #ffb703;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 10px;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      z-index: 999;
     }
-    nav .links {
-      display: flex;
-      gap: 15px;
-    }
-    nav a {
+
+    .side-menu a {
+      display: block;
+      padding: 15px 20px;
       text-decoration: none;
       color: #000;
       font-weight: bold;
-      font-size: 16px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .cart-icon {
+      font-size: 24px;
+      cursor: pointer;
     }
 
     .menu {
@@ -55,18 +75,22 @@
       text-align: center;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
+
     .item img {
       width: 100%;
       height: 150px;
       object-fit: cover;
       border-radius: 5px;
     }
+
     .item h3 {
       margin: 10px 0 5px;
     }
+
     .item p {
       margin: 5px 0;
     }
+
     .item button {
       background: #f77f00;
       color: white;
@@ -75,6 +99,10 @@
       cursor: pointer;
       border-radius: 5px;
       margin-top: 5px;
+    }
+
+    section {
+      padding: 30px 20px 20px;
     }
 
     .carrinho, .checkout {
@@ -87,9 +115,11 @@
       list-style: none;
       padding: 0;
     }
+
     .carrinho li {
       margin: 8px 0;
     }
+
     .remove-btn {
       color: red;
       margin-left: 10px;
@@ -102,6 +132,7 @@
       width: 90%;
       max-width: 400px;
     }
+
     .checkout button {
       margin-top: 10px;
       background: #219ebc;
@@ -120,26 +151,22 @@
       padding: 15px;
       margin-top: 30px;
     }
-
-    section {
-      padding-top: 60px;
-    }
   </style>
 </head>
 <body>
 
-<header>Ceará Lanches 🍔</header>
+<header>
+  <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+  Ceará Lanches 🍔
+  <span class="cart-icon" onclick="document.getElementById('carrinho').scrollIntoView()">🛒</span>
+</header>
 
-<nav>
-  <div class="links">
-    <a href="#bebidas">Bebidas</a>
-    <a href="#doces">Lanches Doces</a>
-    <a href="#porcoes">Porções</a>
-  </div>
-  <div>
-    <a href="#carrinho">🛒 Carrinho</a>
-  </div>
-</nav>
+<!-- MENU LATERAL -->
+<div id="sideMenu" class="side-menu">
+  <a href="#bebidas" onclick="toggleMenu()">Bebidas</a>
+  <a href="#doces" onclick="toggleMenu()">Lanches Doces</a>
+  <a href="#porcoes" onclick="toggleMenu()">Porções</a>
+</div>
 
 <section id="bebidas">
   <h2 style="text-align:center;">Bebidas</h2>
@@ -228,6 +255,10 @@
 <script>
   let carrinho = [];
   let taxaEntrega = 0;
+
+  function toggleMenu() {
+    document.getElementById('sideMenu').classList.toggle('active');
+  }
 
   function addToCart(item, preco) {
     carrinho.push({ item, preco });
