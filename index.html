@@ -1,380 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tio Mano</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top Eletrônicos 🔌</title>
   <style>
-    html, body {
-      height: 100%;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      background: #fffaf5;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
-
     header {
-      background-color: #d62828;
+      background-color: #111;
       color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      font-size: 22px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      position: relative;
-    }
-
-    .menu-toggle, .cart-icon {
-      font-size: 28px;
-      cursor: pointer;
-      user-select: none;
-      position: relative;
-    }
-
-    /* Contador branco sobre o ícone do carrinho */
-    #contadorCarrinho {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: white;
-      color: #d62828;
-      font-weight: bold;
-      font-size: 14px;
-      padding: 2px 7px;
-      border-radius: 50%;
-      pointer-events: none;
-      user-select: none;
-      display: none; /* escondido quando zero */
-      min-width: 20px;
+      padding: 15px;
       text-align: center;
+      font-size: 24px;
     }
-
-    .side-menu,
-    .cart-menu {
-      position: fixed;
-      top: 0;
-      height: 100%;
-      background: #d62828;
-      color: white;
-      padding-top: 60px;
-      transition: all 0.3s ease;
-      z-index: 999;
-      box-sizing: border-box;
-      overflow-y: auto;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
     }
-
-    .side-menu {
-      left: -250px; /* escondido à esquerda */
+    .produto {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 15px;
       width: 250px;
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    .side-menu.active {
-      left: 0;
-    }
-
-    .side-menu a {
-      display: block;
-      padding: 15px 20px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      border-bottom: 1px solid #ffffff33;
-    }
-
-    .cart-menu {
-      right: -320px; /* escondido à direita */
-      width: 320px;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .cart-menu.active {
-      right: 0;
-    }
-
-    .cart-menu h2 {
-      margin-top: 0;
-      text-align: center;
-    }
-
-    #listaCarrinho {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    #listaCarrinho li {
-      margin: 8px 0;
-    }
-
-    .remove-btn {
-      color: yellow;
-      margin-left: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
-    }
-
-    .cart-menu button {
-      background: #ffffff;
-      color: #d62828;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
-      font-weight: bold;
-      width: 100%;
-      transition: background-color 0.2s ease;
-    }
-
-    .cart-menu button:hover {
-      background-color: #f77f00;
-      color: white;
-    }
-
-    .menu {
-      padding: 20px;
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      box-sizing: border-box;
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-
-    .menu.active {
-      display: grid;
-    }
-
-    .item {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    .item img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .item h3 {
-      margin: 0 0 5px;
-    }
-
-    .item p {
-      margin: 5px 0;
-      flex-grow: 1;
-    }
-
-    .item button {
-      background: #f77f00;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
-      transition: background-color 0.2s ease;
-    }
-
-    .item button:hover {
-      background-color: #d95d00;
-    }
-
-    footer {
-      background-color: #d62828;
-      color: white;
       text-align: center;
       padding: 15px;
-      user-select: none;
+    }
+    .produto img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .produto h3 {
+      margin: 10px 0 5px;
+    }
+    .produto p {
+      font-size: 18px;
+      color: green;
+      font-weight: bold;
+    }
+    .produto a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .produto a:hover {
+      background: #1ebd5d;
+    }
+    footer {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <span class="menu-toggle" onclick="toggleMenu()">☰</span>
-  Tio Mano 🍜
-  <span class="cart-icon" onclick="toggleCart()">🛒
-    <span id="contadorCarrinho">0</span>
-  </span>
-</header>
+<header>Top Eletrônicos 🔌</header>
 
-<nav id="sideMenu" class="side-menu" aria-label="Menu lateral">
-  <a href="#" onclick="mostrarCategoria('bebidas'); return false;">Bebidas</a>
-  <a href="#" onclick="mostrarCategoria('doces'); return false;">Lanches Doces</a>
-  <a href="#" onclick="mostrarCategoria('salgados'); return false;">Lanches Salgados</a>
-  <a href="#" onclick="mostrarCategoria('porcoes'); return false;">Porções</a>
-</nav>
+<div class="container">
 
-<aside id="cartMenu" class="cart-menu" aria-label="Carrinho de compras">
-  <h2>🛒 Carrinho</h2>
-  <ul id="listaCarrinho"></ul>
-  <strong id="totalPedido">Total: R$ 0,00</strong><br />
-  <button onclick="finalizarPedido()">Finalizar Pedido</button>
-</aside>
+  <div class="produto">
+    <img src="https://images.tcdn.com.br/img/img_prod/964183/fone_bluetooth_tws_184_1_50f3cefc5dfac795cb3c86b5c5f09e99.jpg" alt="Fone Bluetooth">
+    <h3>Fone Bluetooth TWS</h3>
+    <p>R$ 79,90</p>
+    <a href="https://wa.me/SEUNUMERO?text=Olá! Quero comprar o Fone Bluetooth TWS por R$79,90." target="_blank">Comprar via WhatsApp</a>
+  </div>
 
-<main>
-  <section id="bebidas" class="menu" aria-label="Bebidas">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?soda" alt="Refrigerante" />
-      <h3>Refrigerante Lata</h3>
-      <p>Refrigerante gelado para acompanhar sua refeição.</p>
-      <p>R$ 6,00</p>
-      <button onclick="addToCart('Refrigerante Lata', 6)">Adicionar</button>
-    </div>
-  </section>
+  <div class="produto">
+    <img src="https://cdn.awsli.com.br/600x700/2448/2448492/produto/194548133/smartwatch-x8-ultra-4g3x82b98k.jpg" alt="Smartwatch X8">
+    <h3>Smartwatch X8</h3>
+    <p>R$ 149,90</p>
+    <a href="https://wa.me/SEUNUMERO?text=Olá! Quero comprar o Smartwatch X8 por R$149,90." target="_blank">Comprar via WhatsApp</a>
+  </div>
 
-  <section id="doces" class="menu" aria-label="Lanches Doces">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?cake" alt="Bolo de Pote" />
-      <h3>Bolo de Pote</h3>
-      <p>Doce gelado com camadas de massa e recheio.</p>
-      <p>R$ 9,00</p>
-      <button onclick="addToCart('Bolo de Pote', 9)">Adicionar</button>
-    </div>
-  </section>
+  <div class="produto">
+    <img src="https://http2.mlstatic.com/D_NQ_NP_929012-MLU72637256966_112023-O.jpg" alt="Caixa JBL">
+    <h3>Caixa de Som JBL Mini</h3>
+    <p>R$ 99,90</p>
+    <a href="https://wa.me/SEUNUMERO?text=Olá! Quero comprar a Caixa de Som JBL Mini por R$99,90." target="_blank">Comprar via WhatsApp</a>
+  </div>
 
-  <section id="salgados" class="menu active" aria-label="Lanches Salgados">
-    <div class="item">
-      <img src="IMG_5092.jpeg" alt="X-Burger" />
-      <h3>X-Burger</h3>
-      <p>Pão, hambúrguer artesanal, queijo e alface.</p>
-      <p>R$ 12,00</p>
-      <button onclick="addToCart('X-Burger', 12)">Adicionar</button>
-    </div>
-    <div class="item">
-      <img src="IMG_5092.jpeg" alt="X-Tudo" />
-      <h3>X-Tudo</h3>
-      <p>Pão, hambúrguer artesanal, queijo, alface e bacon.</p>
-      <p>R$ 27,00</p>
-      <button onclick="addToCart('X-Tudo', 27)">Adicionar</button>
-    </div>
-    <div class="item">
-      <img src="IMG_5092.jpeg" alt="X-Bacon" />
-      <h3>X-Bacon</h3>
-      <p>Pão, hambúrguer artesanal, queijo, alface e bacon.</p>
-      <p>R$ 27,00</p>
-      <button onclick="addToCart('X-Bacon', 27)">Adicionar</button>
-    </div>
-  </section>
+  <div class="produto">
+    <img src="https://cdn.awsli.com.br/600x450/1126/1126510/produto/93944561b3f8c27c7d.jpg" alt="Suporte Veicular">
+    <h3>Suporte Veicular Magnético</h3>
+    <p>R$ 39,90</p>
+    <a href="https://wa.me/SEUNUMERO?text=Olá! Quero comprar o Suporte Veicular por R$39,90." target="_blank">Comprar via WhatsApp</a>
+  </div>
 
-  <section id="porcoes" class="menu" aria-label="Porções">
-    <div class="item">
-      <img src="https://source.unsplash.com/400x300/?fries" alt="Porção de Batata" />
-      <h3>Porção de Batata</h3>
-      <p>Batata frita crocante, acompanha molho especial.</p>
-      <p>R$ 15,00</p>
-      <button onclick="addToCart('Porção de Batata', 15)">Adicionar</button>
-    </div>
-  </section>
-</main>
+</div>
 
-<footer>
-  ©2025 Tio mano🍜🍟<br />Todos os direitos reservados
-</footer>
-
-<script>
-  let carrinho = [];
-
-  // Ao carregar, garante que menus estejam fechados e mostra só "bebidas"
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('sideMenu').classList.remove('active');
-    document.getElementById('cartMenu').classList.remove('active');
-
-    mostrarCategoria('bebidas');
-    atualizarContador(); // atualiza contador no carregamento
-  });
-
-  function toggleMenu() {
-    document.getElementById('sideMenu').classList.toggle('active');
-  }
-
-  function toggleCart() {
-    document.getElementById('cartMenu').classList.toggle('active');
-  }
-
-  function mostrarCategoria(id) {
-    // Fecha o menu lateral após clicar (opcional)
-    document.getElementById('sideMenu').classList.remove('active');
-
-    // Esconde todas as categorias
-    document.querySelectorAll('.menu').forEach(sec => {
-      sec.classList.remove('active');
-    });
-
-    // Mostra só a categoria selecionada
-    const categoria = document.getElementById(id);
-    if (categoria) {
-      categoria.classList.add('active');
-    }
-  }
-
-  function addToCart(item, preco) {
-    carrinho.push({ item, preco });
-    atualizarCarrinho();
-  }
-
-  function atualizarCarrinho() {
-    const lista = document.getElementById('listaCarrinho');
-    const total = document.getElementById('totalPedido');
-    lista.innerHTML = "";
-    let totalValor = 0;
-
-    carrinho.forEach((i, index) => {
-      const li = document.createElement('li');
-      li.innerHTML = `${i.item} - R$ ${i.preco.toFixed(2)} <span class="remove-btn" onclick="removerItem(${index})">[remover]</span>`;
-      lista.appendChild(li);
-      totalValor += i.preco;
-    });
-
-    total.textContent = `Total: R$ ${totalValor.toFixed(2)}`;
-
-    atualizarContador();
-  }
-
-  function removerItem(index) {
-    carrinho.splice(index, 1);
-    atualizarCarrinho();
-  }
-
-  function finalizarPedido() {
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    window.location.href = "finalizar.html";
-  }
-
-  function atualizarContador() {
-    const contador = document.getElementById('contadorCarrinho');
-    const quantidade = carrinho.length;
-
-    if (quantidade > 0) {
-      contador.style.display = 'inline-block';
-      contador.textContent = quantidade > 99 ? '99+' : quantidade;
-    } else {
-      contador.style.display = 'none';
-    }
-  }
-</script>
+<footer>📱 Loja 100% Digital | Entrega para todo Brasil</footer>
 
 </body>
 </html>
